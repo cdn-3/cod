@@ -3,245 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Angel En El Ring 🔥</title>
-
+  <title>Video</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: white;
+      padding: 0;
+      background: #000;
+      height: 100%;
     }
 
-    .wrapper {
-      display: flex;
-      max-width: 1200px;
-      margin: 40px auto;
-      gap: 30px;
-      padding: 0 15px;
-      flex-wrap: wrap;
-    }
-
-    .video-section {
-      flex: 3;
-      width: 100%;
-    }
-
-    .video-container {
+    .container {
       position: relative;
       width: 100%;
-      aspect-ratio: 16/9;
-      background: #000;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    .overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
+      height: 80vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .unlock-btn {
-      background: #e50914;
-      color: white;
-      padding: 14px 30px;
+    iframe {
+      width: 80%;
+      height: 80vh;
       border: none;
-      border-radius: 6px;
+    }
+
+    /* BOTÓN ROJO */
+    #playBtn {
+      position: absolute;
+      padding: 16px 30px;
+      background: #e60000;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
       font-size: 18px;
-      cursor: pointer;
-    }
-
-    .sidebar {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .recommendation-box {
-      background: #1a1a1a;
-      padding: 10px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .recommendation-box img {
-      width: 100%;
-      height: 90px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      object-fit: cover;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .recommendation-box:hover img {
-      transform: scale(1.05);
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .recommendation-box a {
-      color: #e50914;
-      text-decoration: none;
       font-weight: bold;
-      font-size: 14px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    .recommendations-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 600px;
-      overflow-y: auto;
-      margin-right: 20px;
-    }
-
-    .recommendation-box {
-      width: 180px;
-      height: auto;
-    }
-
-    .telegram {
-      background: #0088cc;
-      padding: 15px;
-      text-align: center;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-
-    .telegram a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .telegram-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .telegram-download {
-      background: gold;
-      color: black;
-      padding: 15px;
-      text-align: center;
-      border-radius: 10px;
-      margin-top: 10px;
       cursor: pointer;
+      z-index: 10;
     }
 
-    @media (max-width: 768px) {
-      .wrapper {
-        flex-direction: column;
-        gap: 20px;
-        margin: 20px;
-      }
+    /* BOTÓN VERDE */
+    #downloadBtn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 22px;
+      cursor: pointer;
+      z-index: 9999;
+      transition: all .3s ease;
+    }
 
-      .sidebar {
-        flex: 1;
-        width: 100%;
-        max-height: 350px;
-        overflow-y: scroll;
-      }
+    /* SÓLIDO: DESCARGAR VIDEO */
+    .solid {
+      background: #00c853;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(0,200,83,.9);
+    }
 
-      .recommendations-container {
-        flex-direction: row;
-        gap: 10px;
-        overflow-x: scroll;
-        max-height: 250px;
-        padding-bottom: 10px;
-      }
-
-      .recommendation-box {
-        width: 120px;
-      }
-
-      .telegram-download, .telegram {
-        font-size: 14px;
-        padding: 10px;
-      }
-
-      .video-container {
-        width: 100%;
-        aspect-ratio: 16/9;
-      }
+    /* TRANSPARENTE: los demás botones */
+    .transparent {
+      background: rgba(0,0,0,.35);
+      color: #00ff7f;
+      border: 2px solid #00ff7f;
+      box-shadow: none;
+      text-shadow: 0 0 6px rgba(0,0,0,.8);
     }
   </style>
 </head>
-
 <body>
 
-<div class="wrapper">
-
-  <div class="video-section">
-    <div class="video-container">
-      <!-- iframe para el video -->
-      <iframe src="https://myvidplay.com/e/4jcukh3mffa8" allowfullscreen="true"></iframe>
-
-      <div class="overlay" id="overlay">
-        <button class="unlock-btn" onclick="unlockVideo()">🔓 Desbloquear Video</button>
-      </div>
-    </div>
-
-    <div class="telegram-list">
-      <div class="telegram-download" onclick="openAd()">DESCARGAR VIDEO CLICK AQUI 👉</div>
-
-      <div class="telegram">
-        <a href="https://t.me/angelenelring" target="_blank">Únete al grupo exclusivo 👉 @angelenelring</a>
-      </div>
-    </div>
-
+  <div class="container">
+    <!-- Incrustación del video usando iframe -->
+    <iframe src="https://myvidplay.com/e/4jcukh3mffa8" scrolling="no" allowfullscreen="true"></iframe>
+    <button id="playBtn">VER VIDEO</button>
   </div>
 
-  <div class="sidebar">
-    <div class="recommendations-container">
-      <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m165.html" target="_blank">
-          <img src="https://ia902902.us.archive.org/16/items/gemini-generated-image-1n-2hc-41n-2hc-41n-2h/Gemini_Generated_Image_1n2hc41n2hc41n2h.png" alt="Miniatura 1">
-          <p>Ahora si tengo leña para la chimenea</p>
-        </a>
-      </div>
+  <div id="downloadBtn" class="solid">⬇ DESCARGAR VIDEO</div>
 
-      <!-- Más recomendaciones... -->
+  <script>
+    const playBtn = document.getElementById('playBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-    </div>
-  </div>
+    let step = 0;
+    let countdown;
 
-</div>
+    /* BOTÓN ROJO */
+    playBtn.addEventListener('click', () => {
+      window.open(
+        'https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49',
+        '_blank'
+      );
 
-<script>
-function unlockVideo() {
-    window.open(
-        "https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49", 
-        "_blank"
-    );
-    document.getElementById("overlay").style.display = "none";
-}
+      playBtn.style.display = 'none';
+      downloadBtn.style.display = 'block';
 
-function openAd() {
-    window.open("https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49", "_blank");
-}
-</script>
+      setTimeout(() => {
+        if (step === 0) downloadBtn.classList.add('ghost');
+      }, 3000);
+    });
+
+    /* BOTÓN VERDE */
+    downloadBtn.addEventListener('click', () => {
+      /* CLICK 1 */
+      if (step === 0) {
+        step = 1;
+        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        downloadBtn.textContent = '⏳ Preparando descarga…';
+        downloadBtn.classList.remove('solid');
+        downloadBtn.classList.add('transparent');
+
+        setTimeout(() => {
+          downloadBtn.textContent = '❌ Descarga fallida · Click Nuevamente';
+        }, 4000);
+      }
+
+      /* CLICK 2 */
+      else if (step === 1) {
+        step = 2;
+        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        startCountdown(25);
+      }
+
+      /* CLICK FINAL */
+      else if (step === 3) {
+        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        downloadBtn.textContent = '⏳ Procesando…';
+        downloadBtn.style.pointerEvents = 'none';
+      }
+    });
+
+    /* CONTADOR */
+    function startCountdown(seconds) {
+      step = 2;
+      let remaining = seconds;
+
+      downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
+
+      countdown = setInterval(() => {
+        remaining--;
+        downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
+
+        if (remaining <= 0) {
+          clearInterval(countdown);
+          step = 3;
+          downloadBtn.textContent = '✅ Enlace listo · click aquí';
+        }
+      }, 1000);
+    }
+
+    /* PAUSE → MONETAG */
+    downloadBtn.addEventListener('click', () => {
+      window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+    });
+  </script>
 
 </body>
 </html>
