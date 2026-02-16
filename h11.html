@@ -1,338 +1,165 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Angel En El Ring 🔥</title>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0f0f0f;
-    color:white;
-}
-
-.wrapper{
-    display:flex;
-    max-width:1200px;
-    margin:40px auto;
-    gap:30px;
-    padding:0 15px;
-}
-
-.video-section{
-    flex:3;
-}
-
-.video-container{
-    position:relative;
-    width:100%;
-    aspect-ratio:16/9;
-    background:#000;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-video{
-    width:100%;
-    height:100%;
-    object-fit:contain; /* Cambié a 'contain' para evitar el recorte */
-    display:none;
-}
-
-.overlay{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.85);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.unlock-btn{
-    background:#e50914;
-    color:white;
-    padding:14px 30px;
-    border:none;
-    border-radius:6px;
-    font-size:18px;
-    cursor:pointer;
-}
-
-.sidebar{
-    flex:1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.recommendation-box{
-    background:#1a1a1a;
-    padding:10px;
-    border-radius:10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.recommendation-box img{
-    width:100%;
-    height:90px; /* Tamaño más adecuado */
-    border-radius:8px;
-    margin-bottom:10px;
-    object-fit:cover;
-    cursor:pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.recommendation-box:hover img {
-    transform: scale(1.05); /* Efecto de zoom al pasar por encima */
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.2); /* Sombra para hacerla más dinámica */
-}
-
-.recommendation-box a{
-    color:#e50914;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:14px; /* Asegurando que el texto no sea tan grande */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limitar el texto a 2 líneas */
-    -webkit-box-orient: vertical;
-}
-
-.recommendations-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 600px;
-    overflow-y: auto;
-    margin-right: 20px;
-}
-
-.recommendation-box {
-    width: 180px; /* Ancho adecuado para las miniaturas */
-    height: auto;
-}
-
-.telegram{
-    background: #0088cc; /* Color azul para el botón de Telegram */
-    padding:15px;
-    text-align:center;
-    border-radius:10px;
-    margin-top:10px; /* Ajusté la separación */
-}
-
-.telegram a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.telegram-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Ajusté la separación entre los botones */
-}
-
-.telegram-download {
-    background: gold; /* Color dorado solo para el botón de descarga */
-    color:black; /* Letras negras para el botón de descarga */
-    padding:15px;
-    text-align:center;
-    border-radius:10px;
-    margin-top:10px;
-    cursor:pointer;
-}
-
-/* Media Query para pantallas pequeñas (Móviles) */
-@media (max-width: 768px) {
-    .wrapper {
-        flex-direction: column;
-        gap: 20px;
-        margin: 20px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      height: 100%;
     }
 
-    .sidebar {
-        flex: 1;
-        width: 100%;
-        max-height: 350px;
-        overflow-y: scroll;
+    .container {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .recommendations-container {
-        flex-direction: row;
-        gap: 10px;
-        overflow-x: scroll;
-        max-height: 250px; /* Ajustamos la altura para que se vea bien en móvil */
-        padding-bottom: 10px; /* Espacio para evitar que las miniaturas se corten */
+    iframe {
+      width: 80%;
+      height: 80vh;
+      border: none;
     }
 
-    .recommendation-box {
-        width: 120px; /* Miniaturas más grandes en móvil */
-        height: auto;
+    /* BOTÓN ROJO */
+    #playBtn {
+      position: absolute;
+      padding: 16px 30px;
+      background: #e60000;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
     }
 
-    .telegram-download, .telegram {
-        font-size: 14px;
-        padding: 10px;
+    /* BOTÓN VERDE */
+    #downloadBtn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 22px;
+      cursor: pointer;
+      z-index: 9999;
+      transition: all .3s ease;
     }
 
-    .video-container {
-        width: 100%;
-        aspect-ratio: 16/9;
+    /* SÓLIDO: DESCARGAR VIDEO */
+    .solid {
+      background: #00c853;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(0,200,83,.9);
     }
 
-    video {
-        width: 100%;
-        object-fit:contain; /* Asegura que el video se ajuste correctamente */
+    /* TRANSPARENTE: los demás botones */
+    .transparent {
+      background: rgba(0,0,0,.35);
+      color: #00ff7f;
+      border: 2px solid #00ff7f;
+      box-shadow: none;
+      text-shadow: 0 0 6px rgba(0,0,0,.8);
     }
-}
-</style>
+  </style>
 </head>
-
 <body>
 
-<div class="wrapper">
+  <div class="container">
+    <!-- Incrustación del video usando iframe -->
+    <iframe src="https://myvidplay.com/d/aqz94kuocpv4" scrolling="no" allowfullscreen="true"></iframe>
+    <button id="playBtn">VER VIDEO</button>
+  </div>
 
-<div class="video-section">
+  <div id="downloadBtn" class="solid">⬇ DESCARGAR VIDEO</div>
 
-<div class="video-container">
+  <script>
+    const playBtn = document.getElementById('playBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-<video id="miVideo" controls preload="metadata">
-<source src="https://vidcool2.org/videos/h11.mp4" type="video/mp4">
-</video>
+    let step = 0;
+    let countdown;
 
-<div class="overlay" id="overlay">
-<button class="unlock-btn" onclick="unlockVideo()">
-🔓 Desbloquear Video
-</button>
-</div>
+    /* BOTÓN ROJO */
+    playBtn.addEventListener('click', () => {
+      window.open(
+        'https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49',
+        '_blank'
+      );
 
-</div>
+      playBtn.style.display = 'none';
+      downloadBtn.style.display = 'block';
 
-<!-- Moví el orden de los botones aquí -->
-<div class="telegram-list">
-    <div class="telegram-download" onclick="openAd()">
-        DESCARGAR VIDEO CLICK AQUI 👉
-    </div>
+      setTimeout(() => {
+        if (step === 0) downloadBtn.classList.add('ghost');
+      }, 3000);
+    });
 
-    <div class="telegram">
-        <a href="https://t.me/angelenelring" target="_blank">
-            Únete al grupo exclusivo 👉 @angelenelring
-        </a>
-    </div>
-</div>
+    /* BOTÓN VERDE */
+    downloadBtn.addEventListener('click', () => {
+      /* CLICK 1 */
+      if (step === 0) {
+        step = 1;
+        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        downloadBtn.textContent = '⏳ Preparando descarga…';
+        downloadBtn.classList.remove('solid');
+        downloadBtn.classList.add('transparent');
 
-</div>
+        setTimeout(() => {
+          downloadBtn.textContent = '❌ Descarga fallida · Click Nuevamente';
+        }, 4000);
+      }
 
-<div class="sidebar">
+      /* CLICK 2 */
+      else if (step === 1) {
+        step = 2;
+        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        startCountdown(25);
+      }
 
-<!-- Contenedor para las recomendaciones de video (listado vertical) -->
-<div class="recommendations-container">
-    <!-- Recomendación de video 1 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m165.html" target="_blank">
-            <img src="https://ia902902.us.archive.org/16/items/gemini-generated-image-1n-2hc-41n-2hc-41n-2h/Gemini_Generated_Image_1n2hc41n2hc41n2h.png" alt="Miniatura 1">
-            <p>Ahora si tengo leña para la chimenea</p>
-        </a>
-    </div>
+      /* CLICK FINAL */
+      else if (step === 3) {
+        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        downloadBtn.textContent = '⏳ Procesando…';
+        downloadBtn.style.pointerEvents = 'none';
+      }
+    });
 
-    <!-- Recomendación de video 2 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m164.html" target="_blank">
-            <img src="https://ia600107.us.archive.org/0/items/gemini-generated-image-3ohyki-3ohyki-3ohy/Gemini_Generated_Image_3ohyki3ohyki3ohy.png" alt="Miniatura 2">
-            <p>No pudo resistir el peso que cargaba</p>
-        </a>
-    </div>
+    /* CONTADOR */
+    function startCountdown(seconds) {
+      step = 2;
+      let remaining = seconds;
 
-    <!-- Recomendación de video 3 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m163.html" target="_blank">
-            <img src="https://ia600805.us.archive.org/6/items/gemini-generated-image-10jk-6410jk-6410jk/Gemini_Generated_Image_10jk6410jk6410jk.png" alt="Miniatura 3">
-            <p>Me gusta mucho grabarme solita</p>
-        </a>
-    </div>
+      downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
 
-    <!-- Recomendación de video 4 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m162.html" target="_blank">
-            <img src="https://ia601001.us.archive.org/10/items/gemini-generated-image-e-51zrie-51zrie-51z/Gemini_Generated_Image_e51zrie51zrie51z.png" alt="Miniatura 4">
-            <p>No se resistió y lo tuve que meter rápido</p>
-        </a>
-    </div>
+      countdown = setInterval(() => {
+        remaining--;
+        downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
 
-    <!-- Recomendación de video 6 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m160.html" target="_blank">
-            <img src="https://ia600604.us.archive.org/10/items/gemini-generated-image-i-3sv-42i-3sv-42i-3sv/Gemini_Generated_Image_i3sv42i3sv42i3sv.png" alt="Miniatura 6">
-            <p>Perdón abuela, limpiaré este desastre</p>
-        </a>
-    </div>
+        if (remaining <= 0) {
+          clearInterval(countdown);
+          step = 3;
+          downloadBtn.textContent = '✅ Enlace listo · click aquí';
+        }
+      }, 1000);
+    }
 
-    <!-- Recomendación de video 7 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m159.html" target="_blank">
-            <img src="https://ia600407.us.archive.org/24/items/gemini-generated-image-ymwn-52ymwn-52ymwn/Gemini_Generated_Image_ymwn52ymwn52ymwn.png" alt="Miniatura 7">
-            <p>Mira, ya me mojaste otra vez</p>
-        </a>
-    </div>
-
-    <!-- Recomendación de video 8 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m158.html" target="_blank">
-            <img src="https://ia903105.us.archive.org/34/items/gemini-generated-image-wlsvpbwlsvpbwlsv/Gemini_Generated_Image_wlsvpbwlsvpbwlsv.png" alt="Miniatura 8">
-            <p>Se la crome toda a mi jefe</p>
-        </a>
-    </div>
-
-    <!-- Recomendación de video 9 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m157.html" target="_blank">
-            <img src="https://ia600607.us.archive.org/35/items/gemini-generated-image-pe-2co-0pe-2co-0pe-2c/Gemini_Generated_Image_pe2co0pe2co0pe2c.png" alt="Miniatura 9">
-            <p>Gracias abuelo por este gran regalo</p>
-        </a>
-    </div>
-
-    <!-- Recomendación de video 10 -->
-    <div class="recommendation-box">
-        <a href="https://viralzone1.github.io/bud/m156.html" target="_blank">
-            <img src="https://ia601005.us.archive.org/28/items/gemini-generated-image-ifydvgifydvgifyd/Gemini_Generated_Image_ifydvgifydvgifyd.png" alt="Miniatura 10">
-            <p>Despierta sobrina, ya es hora</p>
-        </a>
-    </div>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-function unlockVideo(){
-    // Abrir el enlace del anuncio cuando se presiona el botón "Desbloquear Video"
-    window.open(
-        "https://www.effectivegatecpm.com/eewg0zx60a?key=e7350c4a3bd8bebf18f762350bd5af0a", 
-        "_blank"
-    );
-
-    // Ocultar la capa de sobrecarga y el botón
-    document.getElementById("overlay").style.display = "none";
-
-    // Mostrar y reproducir el video
-    var video = document.getElementById("miVideo");
-    video.style.display = "block";
-    video.play();
-}
-
-function openAd() {
-    // Abrir el enlace del anuncio al hacer clic en el botón dorado de descarga
-    window.open("https://www.effectivegatecpm.com/eewg0zx60a?key=e7350c4a3bd8bebf18f762350bd5af0a", "_blank");
-}
-</script>
+    /* PAUSE → MONETAG */
+    downloadBtn.addEventListener('click', () => {
+      window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+    });
+  </script>
 
 </body>
 </html>
