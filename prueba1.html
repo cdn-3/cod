@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video con anuncios</title>
+  <title>Video con anuncio pop-up</title>
   <style>
     html, body {
       margin: 0;
@@ -87,36 +87,13 @@
   <script>
     const playBtn = document.getElementById('playBtn');
     const downloadBtn = document.getElementById('downloadBtn');
-    let step = 0;
-    let countdown;
-    let videoPlayed = false;
 
-    /* BOTÓN ROJO */
+    // Acción para cuando el usuario haga clic en el botón "Ver Video"
     playBtn.addEventListener('click', () => {
-      // Abrir anuncio a los 60 segundos
-      setTimeout(() => {
-        window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
-      }, 60000); // Esperar 60 segundos
+      // Abrir el anuncio en una nueva ventana (pop-up)
+      window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes');
 
-      // Abrir anuncio al final del video
-      window.onload = () => {
-        let video = document.getElementById('videoPlayer');
-        video.addEventListener('ended', function () {
-          if (!videoPlayed) {
-            videoPlayed = true;
-            setTimeout(() => {
-              window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
-            }, 500); // Abrir el anuncio al final del video
-          }
-        });
-      };
-
-      // Redirigir al anuncio cuando se presiona el botón
-      window.open(
-        'https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170',
-        '_blank'
-      );
-
+      // Ocultar el botón "Ver Video" y mostrar el botón de "Descargar Video"
       playBtn.style.display = 'none';
       downloadBtn.style.display = 'block';
 
@@ -124,6 +101,8 @@
         if (step === 0) downloadBtn.classList.add('ghost');
       }, 3000);
     });
+
+    let step = 0;
 
     /* BOTÓN VERDE */
     downloadBtn.addEventListener('click', () => {
@@ -155,7 +134,7 @@
 
       downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
 
-      countdown = setInterval(() => {
+      let countdown = setInterval(() => {
         remaining--;
         downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
 
