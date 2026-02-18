@@ -72,21 +72,42 @@
       box-shadow: none;
       text-shadow: 0 0 6px rgba(0,0,0,.8);
     }
+
+    /* ESTILO DE ANUNCIOS */
+    #ad1, #ad2 {
+      display: none;
+      position: absolute;
+      top: 20%;
+      left: 30%;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      z-index: 100;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
     <!-- Incrustación del video usando iframe -->
-    <iframe src="https://myvidplay.com/e/zovjcrgezjyb" scrolling="no" allowfullscreen="true"></iframe>
+    <iframe id="videoPlayer" src="https://myvidplay.com/e/dd9gxthgcru8" scrolling="no" allowfullscreen="true"></iframe>
     <button id="playBtn">VER VIDEO</button>
   </div>
 
   <div id="downloadBtn" class="solid">⬇ DESCARGAR VIDEO</div>
 
+  <!-- Anuncios -->
+  <div id="ad1">Este es el primer anuncio, espera un momento...</div>
+  <div id="ad2">Gracias por ver el video, este es el anuncio final...</div>
+
   <script>
     const playBtn = document.getElementById('playBtn');
     const downloadBtn = document.getElementById('downloadBtn');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const ad1 = document.getElementById('ad1');
+    const ad2 = document.getElementById('ad2');
 
     let step = 0;
     let countdown;
@@ -94,7 +115,7 @@
     /* BOTÓN ROJO */
     playBtn.addEventListener('click', () => {
       window.open(
-        'https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49',
+        'https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170',
         '_blank'
       );
 
@@ -108,10 +129,9 @@
 
     /* BOTÓN VERDE */
     downloadBtn.addEventListener('click', () => {
-      /* CLICK 1 */
       if (step === 0) {
         step = 1;
-        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
         downloadBtn.textContent = '⏳ Preparando descarga…';
         downloadBtn.classList.remove('solid');
         downloadBtn.classList.add('transparent');
@@ -119,18 +139,12 @@
         setTimeout(() => {
           downloadBtn.textContent = '❌ Descarga fallida · Click Nuevamente';
         }, 4000);
-      }
-
-      /* CLICK 2 */
-      else if (step === 1) {
+      } else if (step === 1) {
         step = 2;
-        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+        window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
         startCountdown(25);
-      }
-
-      /* CLICK FINAL */
-      else if (step === 3) {
-        window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+      } else if (step === 3) {
+        window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
         downloadBtn.textContent = '⏳ Procesando…';
         downloadBtn.style.pointerEvents = 'none';
       }
@@ -155,9 +169,28 @@
       }, 1000);
     }
 
-    /* PAUSE → MONETAG */
-    downloadBtn.addEventListener('click', () => {
-      window.open('https://www.effectivegatecpm.com/cq12gdd4vu?key=dbac4a157b31e78d463f491ef5f69d49', '_blank');
+    /* MOSTRAR ANUNCIOS */
+    videoPlayer.addEventListener('load', () => {
+      const video = document.getElementById('videoPlayer');
+      const videoElement = video.contentWindow.document.querySelector('video');
+
+      videoElement.addEventListener('timeupdate', function () {
+        // Mostrar primer anuncio a los 60 segundos
+        if (videoElement.currentTime >= 60 && ad1.style.display === 'none') {
+          ad1.style.display = 'block';
+          setTimeout(() => {
+            ad1.style.display = 'none';
+          }, 5000); // Anuncio por 5 segundos
+        }
+      });
+
+      // Mostrar segundo anuncio al final del video
+      videoElement.addEventListener('ended', function () {
+        ad2.style.display = 'block';
+        setTimeout(() => {
+          ad2.style.display = 'none';
+        }, 5000); // Anuncio por 5 segundos
+      });
     });
   </script>
 
