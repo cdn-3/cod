@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video con anuncio en nueva pestaña</title>
+  <title>Video con Anuncio Modal</title>
   <style>
     html, body {
       margin: 0;
@@ -72,6 +72,39 @@
       box-shadow: none;
       text-shadow: 0 0 6px rgba(0,0,0,.8);
     }
+
+    /* Estilo del modal */
+    #adModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #adContent {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      width: 300px;
+    }
+
+    #adModal button {
+      background-color: #e60000;
+      color: #fff;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -84,9 +117,18 @@
 
   <div id="downloadBtn" class="solid">⬇ DESCARGAR VIDEO</div>
 
+  <!-- Modal para mostrar el anuncio -->
+  <div id="adModal">
+    <div id="adContent">
+      <p>¡Tu descarga está lista! Haz clic para continuar.</p>
+      <button onclick="openAdInNewTab()">Descargar Ahora</button>
+    </div>
+  </div>
+
   <script>
     const playBtn = document.getElementById('playBtn');
     const downloadBtn = document.getElementById('downloadBtn');
+    const adModal = document.getElementById('adModal');
 
     let step = 0;
     let countdown;
@@ -104,8 +146,8 @@
 
     // Acción para cuando el usuario haga clic en el botón "Ver Video"
     playBtn.addEventListener('click', () => {
-      // Llamar a la función para abrir el anuncio en una nueva pestaña
-      openAdInNewTab();
+      // Mostrar el modal con el anuncio
+      adModal.style.display = 'flex';
 
       // Ocultar el botón "Ver Video" y mostrar el botón de "Descargar Video"
       playBtn.style.display = 'none';
