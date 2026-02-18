@@ -93,13 +93,12 @@
 
     // Función para abrir el anuncio en una nueva pestaña sin cambiar el enfoque
     function openAdInNewTab() {
-      // Abrir el enlace en una nueva pestaña
       const newTab = window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
-
-      // Cambiar el enfoque de la ventana actual sin cambiar a la nueva
+      
+      // Asegurarnos de que la nueva pestaña no tome el foco
       if (newTab) {
-        newTab.blur(); // Desenfocar la nueva pestaña
-        window.focus(); // Volver a enfocar la pestaña original
+        newTab.blur(); // Desenfocamos la nueva pestaña
+        window.focus(); // Volvemos a enfocar la pestaña original
       }
     }
 
