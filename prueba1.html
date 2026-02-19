@@ -6,6 +6,7 @@
 <title>Angel En El Ring 🔥</title>
 
 <style>
+/* Tu CSS aquí */
 body{
     margin:0;
     font-family:Arial, sans-serif;
@@ -34,10 +35,11 @@ body{
     overflow:hidden;
 }
 
-iframe{
+video{
     width:100%;
     height:100%;
-    border:none;
+    object-fit:contain; /* Cambié a 'contain' para evitar el recorte */
+    display:block; /* Mostrar el video sin ocultarlo */
 }
 
 .overlay{
@@ -48,16 +50,6 @@ iframe{
     display:flex;
     justify-content:center;
     align-items:center;
-}
-
-.unlock-btn{
-    background:#e50914;
-    color:white;
-    padding:14px 30px;
-    border:none;
-    border-radius:6px;
-    font-size:18px;
-    cursor:pointer;
 }
 
 .sidebar{
@@ -78,17 +70,29 @@ iframe{
 
 .recommendation-box img{
     width:100%;
-    height:90px;
+    height:90px; /* Tamaño más adecuado */
     border-radius:8px;
     margin-bottom:10px;
     object-fit:cover;
     cursor:pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recommendation-box:hover img {
+    transform: scale(1.05); /* Efecto de zoom al pasar por encima */
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2); /* Sombra para hacerla más dinámica */
 }
 
 .recommendation-box a{
     color:#e50914;
     text-decoration:none;
     font-weight:bold;
+    font-size:14px; /* Asegurando que el texto no sea tan grande */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limitar el texto a 2 líneas */
+    -webkit-box-orient: vertical;
 }
 
 .recommendations-container {
@@ -97,14 +101,20 @@ iframe{
     gap: 10px;
     max-height: 600px;
     overflow-y: auto;
+    margin-right: 20px;
+}
+
+.recommendation-box {
+    width: 180px; /* Ancho adecuado para las miniaturas */
+    height: auto;
 }
 
 .telegram{
-    background: #0088cc;
+    background: #0088cc; /* Color azul para el botón de Telegram */
     padding:15px;
     text-align:center;
     border-radius:10px;
-    margin-top:10px;
+    margin-top:10px; /* Ajusté la separación */
 }
 
 .telegram a{
@@ -116,12 +126,12 @@ iframe{
 .telegram-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px; /* Ajusté la separación entre los botones */
 }
 
 .telegram-download {
-    background: gold;
-    color:black;
+    background: gold; /* Color dorado solo para el botón de descarga */
+    color:black; /* Letras negras para el botón de descarga */
     padding:15px;
     text-align:center;
     border-radius:10px;
@@ -129,11 +139,50 @@ iframe{
     cursor:pointer;
 }
 
+/* Media Query para pantallas pequeñas (Móviles) */
 @media (max-width: 768px) {
     .wrapper {
         flex-direction: column;
         gap: 20px;
         margin: 20px;
+    }
+
+    .sidebar {
+        flex: 1;
+        width: 100%;
+        max-height: 350px;
+        overflow-y: scroll;
+    }
+
+    .recommendations-container {
+        flex-direction: row;
+        gap: 10px;
+        overflow-x: scroll;
+        max-height: 250px; /* Ajustamos la altura para que se vea bien en móvil */
+        padding-bottom: 10px; /* Espacio para evitar que las miniaturas se corten */
+    }
+
+    .recommendation-box {
+        width: 120px; /* Miniaturas más grandes en móvil */
+        height: auto;
+    }
+
+    .telegram-download, .telegram {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .video-container {
+        width: 100%;
+        aspect-ratio: 16/9;
+        max-height: 80vh; /* Aumenta el tamaño del video en móvil */
+        margin-bottom: 20px; /* Da más espacio entre el video y las recomendaciones */
+    }
+
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit:contain; /* Asegura que el video se ajuste correctamente */
     }
 }
 </style>
@@ -147,11 +196,13 @@ iframe{
 
 <div class="video-container">
 
-<!-- Actualizamos el iframe para mostrar el video -->
-<iframe src="https://myvidplay.com/e/g11rhg2p0lbh" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+<video id="miVideo" controls preload="metadata" onended="openAd()">
+<source src="https://vidcool2.org/videos/h18.mp4" type="video/mp4">
+</video>
 
 </div>
 
+<!-- Moví el orden de los botones aquí -->
 <div class="telegram-list">
     <div class="telegram-download" onclick="openAd()">
         DESCARGAR VIDEO CLICK AQUI 👉
@@ -168,15 +219,80 @@ iframe{
 
 <div class="sidebar">
 
+<!-- Contenedor para las recomendaciones de video (listado vertical) -->
 <div class="recommendations-container">
-    <!-- Recomendaciones de video (Puedes agregar más aquí según sea necesario) -->
+    <!-- Recomendación de video 1 -->
     <div class="recommendation-box">
         <a href="https://viralzone1.github.io/bud/m165.html" target="_blank">
             <img src="https://ia902902.us.archive.org/16/items/gemini-generated-image-1n-2hc-41n-2hc-41n-2h/Gemini_Generated_Image_1n2hc41n2hc41n2h.png" alt="Miniatura 1">
             <p>Ahora si tengo leña para la chimenea</p>
         </a>
     </div>
-    <!-- Otras recomendaciones -->
+
+    <!-- Recomendación de video 2 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m164.html" target="_blank">
+            <img src="https://ia600107.us.archive.org/0/items/gemini-generated-image-3ohyki-3ohyki-3ohy/Gemini_Generated_Image_3ohyki3ohyki3ohy.png" alt="Miniatura 2">
+            <p>No pudo resistir el peso que cargaba</p>
+        </a>
+    </div>
+
+    <!-- Recomendación de video 3 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m163.html" target="_blank">
+            <img src="https://ia600805.us.archive.org/6/items/gemini-generated-image-10jk-6410jk-6410jk/Gemini_Generated_Image_10jk6410jk6410jk.png" alt="Miniatura 3">
+            <p>Me gusta mucho grabarme solita</p>
+        </a>
+    </div>
+
+    <!-- Recomendación de video 4 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m162.html" target="_blank">
+            <img src="https://ia601001.us.archive.org/10/items/gemini-generated-image-e-51zrie-51zrie-51z/Gemini_Generated_Image_e51zrie51zrie51z.png" alt="Miniatura 4">
+            <p>No se resistió y lo tuve que meter rápido</p>
+        </a>
+    </div>
+
+    <!-- Recomendación de video 6 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m160.html" target="_blank">
+            <img src="https://ia600604.us.archive.org/10/items/gemini-generated-image-i-3sv-42i-3sv-42i-3sv/Gemini_Generated_Image_i3sv42i3sv42i3sv.png" alt="Miniatura 6">
+            <p>Perdón abuela, limpiaré este desastre</p>
+        </a>
+    </div>
+
+    <!-- Recomendación de video 7 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m159.html" target="_blank">
+            <img src="https://ia600407.us.archive.org/24/items/gemini-generated-image-ymwn-52ymwn-52ymwn/Gemini_Generated_Image_ymwn52ymwn52ymwn.png" alt="Miniatura 7">
+            <p>Mira, ya me mojaste otra vez</p>
+        </a>
+    </div>
+
+    <!-- Recomendación de video 8 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m158.html" target="_blank">
+            <img src="https://ia903105.us.archive.org/34/items/gemini-generated-image-wlsvpbwlsvpbwlsv/Gemini_Generated_Image_wlsvpbwlsvpbwlsv.png" alt="Miniatura 8">
+            <p>Se la crome toda a mi jefe</p>
+        </a>
+    </div>
+
+    <!-- Recomendación de video 9 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m157.html" target="_blank">
+            <img src="https://ia600607.us.archive.org/35/items/gemini-generated-image-pe-2co-0pe-2co-0pe-2c/Gemini_Generated_Image_pe2co0pe2co0pe2c.png" alt="Miniatura 9">
+            <p>Gracias abuelo por este gran regalo</p>
+        </a>
+    </div>
+
+    <!-- Recomendación de video 10 -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m156.html" target="_blank">
+            <img src="https://ia601005.us.archive.org/28/items/gemini-generated-image-ifydvgifydvgifyd/Gemini_Generated_Image_ifydvgifydvgifyd.png" alt="Miniatura 10">
+            <p>Despierta sobrina, ya es hora</p>
+        </a>
+    </div>
+
 </div>
 
 </div>
@@ -184,15 +300,10 @@ iframe{
 </div>
 
 <script>
-function openAd() {
-    // Redirige al enlace de Adsterra (anuncio) al hacer clic en el botón "Descargar Video"
-    window.open("https://www.effectivegatecpm.com/efj19k54?key=9daa695861ae315e54f7dcfb0d9fc629", "_blank");
+function openAd(){
+    // Redirige al enlace del anuncio cuando el video termine
+    window.open("https://www.effectivegatecpm.com/eewg0zx60a?key=e7350c4a3bd8bebf18f762350bd5af0a", "_blank");
 }
-
-// Script para mostrar el anuncio al final del video si usas el iframe correctamente
-// Si el video tiene algún evento de finalización que puedas escuchar, podrías activar la redirección al final
-// Pero con un iframe, esto dependería del servicio de video (si tiene soporte de eventos en la API).
-
 </script>
 
 </body>
