@@ -1,205 +1,210 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video con Anuncio Modal</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      height: 100%;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angel En El Ring 🔥</title>
 
-    .container {
-      position: relative;
-      width: 100%;
-      height: 80vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0f0f0f;
+    color:white;
+}
 
-    iframe {
-      width: 80%;
-      height: 80vh;
-      border: none;
-    }
+.wrapper{
+    display:flex;
+    max-width:1200px;
+    margin:40px auto;
+    gap:30px;
+    padding:0 15px;
+}
 
-    /* BOTÓN ROJO */
-    #playBtn {
-      position: absolute;
-      padding: 16px 30px;
-      background: #e60000;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10;
-    }
+.video-section{
+    flex:3;
+}
 
-    /* BOTÓN VERDE */
-    #downloadBtn {
-      display: none;
-      position: fixed;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 8px 20px;
-      font-size: 13px;
-      font-weight: bold;
-      border-radius: 22px;
-      cursor: pointer;
-      z-index: 9999;
-      transition: all .3s ease;
-    }
+.video-container{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-radius:12px;
+    overflow:hidden;
+}
 
-    /* SÓLIDO: DESCARGAR VIDEO */
-    .solid {
-      background: #00c853;
-      color: #fff;
-      box-shadow: 0 0 12px rgba(0,200,83,.9);
-    }
+video{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:none;
+}
 
-    /* TRANSPARENTE: los demás botones */
-    .transparent {
-      background: rgba(0,0,0,.35);
-      color: #00ff7f;
-      border: 2px solid #00ff7f;
-      box-shadow: none;
-      text-shadow: 0 0 6px rgba(0,0,0,.8);
-    }
+.overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.85);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-    /* Estilo del modal */
-    #adModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+.unlock-btn{
+    background:#e50914;
+    color:white;
+    padding:14px 30px;
+    border:none;
+    border-radius:6px;
+    font-size:18px;
+    cursor:pointer;
+}
 
-    #adContent {
-      background: #fff;
-      padding: 20px;
-      text-align: center;
-      border-radius: 10px;
-      width: 300px;
-    }
+.sidebar{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-    #adModal button {
-      background-color: #e60000;
-      color: #fff;
-      padding: 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+.recommendation-box{
+    background:#1a1a1a;
+    padding:10px;
+    border-radius:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recommendation-box img{
+    width:100%;
+    height:90px;
+    border-radius:8px;
+    margin-bottom:10px;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+.recommendation-box a{
+    color:#e50914;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.recommendations-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.telegram{
+    background: #0088cc;
+    padding:15px;
+    text-align:center;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.telegram a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.telegram-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.telegram-download {
+    background: gold;
+    color:black;
+    padding:15px;
+    text-align:center;
+    border-radius:10px;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+        gap: 20px;
+        margin: 20px;
     }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <div class="container">
-    <!-- Incrustación del video usando iframe -->
-    <iframe id="videoPlayer" src="https://myvidplay.com/e/dd9gxthgcru8" scrolling="no" allowfullscreen="true"></iframe>
-    <button id="playBtn">VER VIDEO</button>
-  </div>
+<div class="wrapper">
 
-  <div id="downloadBtn" class="solid">⬇ DESCARGAR VIDEO</div>
+<div class="video-section">
 
-  <!-- Modal para mostrar el anuncio -->
-  <div id="adModal">
-    <div id="adContent">
-      <p>¡Tu descarga está lista! Haz clic para continuar.</p>
-      <button onclick="openAdInNewTab()">Descargar Ahora</button>
+<div class="video-container">
+
+<video id="miVideo" controls preload="metadata">
+<source src="https://vidcool2.org/videos/m12.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<div class="telegram-list">
+    <div class="telegram-download" onclick="openAd()">
+        DESCARGAR VIDEO CLICK AQUI 👉
     </div>
-  </div>
 
-  <script>
-    const playBtn = document.getElementById('playBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const adModal = document.getElementById('adModal');
+    <div class="telegram">
+        <a href="https://t.me/angelenelring" target="_blank">
+            Únete al grupo exclusivo 👉 @angelenelring
+        </a>
+    </div>
+</div>
 
-    let step = 0;
-    let countdown;
+</div>
 
-    // Función para abrir el anuncio en una nueva pestaña sin cambiar el enfoque
-    function openAdInNewTab() {
-      const newTab = window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
-      
-      // Asegurarnos de que la nueva pestaña no tome el foco
-      if (newTab) {
-        newTab.blur(); // Desenfocamos la nueva pestaña
-        window.focus(); // Volvemos a enfocar la pestaña original
-      }
-    }
+<div class="sidebar">
 
-    // Acción para cuando el usuario haga clic en el botón "Ver Video"
-    playBtn.addEventListener('click', () => {
-      // Mostrar el modal con el anuncio
-      adModal.style.display = 'flex';
+<div class="recommendations-container">
+    <!-- Recomendaciones de video (Puedes agregar más aquí según sea necesario) -->
+    <div class="recommendation-box">
+        <a href="https://viralzone1.github.io/bud/m165.html" target="_blank">
+            <img src="https://ia902902.us.archive.org/16/items/gemini-generated-image-1n-2hc-41n-2hc-41n-2h/Gemini_Generated_Image_1n2hc41n2hc41n2h.png" alt="Miniatura 1">
+            <p>Ahora si tengo leña para la chimenea</p>
+        </a>
+    </div>
+    <!-- Otras recomendaciones -->
+</div>
 
-      // Ocultar el botón "Ver Video" y mostrar el botón de "Descargar Video"
-      playBtn.style.display = 'none';
-      downloadBtn.style.display = 'block';
+</div>
 
-      setTimeout(() => {
-        if (step === 0) downloadBtn.classList.add('ghost');
-      }, 3000);
-    });
+</div>
 
-    /* BOTÓN VERDE */
-    downloadBtn.addEventListener('click', () => {
-      if (step === 0) {
-        step = 1;
-        window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
-        downloadBtn.textContent = '⏳ Preparando descarga…';
-        downloadBtn.classList.remove('solid');
-        downloadBtn.classList.add('transparent');
+<script>
+let video = document.getElementById("miVideo");
 
-        setTimeout(() => {
-          downloadBtn.textContent = '❌ Descarga fallida · Click Nuevamente';
-        }, 4000);
-      } else if (step === 1) {
-        step = 2;
-        window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
-        startCountdown(25);
-      } else if (step === 3) {
-        window.open('https://www.effectivegatecpm.com/b3jdh2uc5?key=5bac7e79fe5cb4b1ea4f8d5b6aa79170', '_blank');
-        downloadBtn.textContent = '⏳ Procesando…';
-        downloadBtn.style.pointerEvents = 'none';
-      }
-    });
+// Reproduce el video automáticamente y redirige al anuncio al finalizar.
+video.onended = function() {
+    window.open("https://www.effectivegatecpm.com/efj19k54?key=9daa695861ae315e54f7dcfb0d9fc629", "_blank");
+};
 
-    /* CONTADOR */
-    function startCountdown(seconds) {
-      step = 2;
-      let remaining = seconds;
+function openAd() {
+    // Redirige al enlace de Adsterra (anuncio) al hacer clic en el botón "Descargar Video"
+    window.open("https://www.effectivegatecpm.com/efj19k54?key=9daa695861ae315e54f7dcfb0d9fc629", "_blank");
+}
 
-      downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
-
-      countdown = setInterval(() => {
-        remaining--;
-        downloadBtn.textContent = `⏱ Enlace disponible en ${remaining}s`;
-
-        if (remaining <= 0) {
-          clearInterval(countdown);
-          step = 3;
-          downloadBtn.textContent = '✅ Enlace listo · click aquí';
-        }
-      }, 1000);
-    }
-  </script>
+// Muestra y reproduce el video cuando se desbloquee
+function unlockVideo(){
+    var video = document.getElementById("miVideo");
+    video.style.display = "block";
+    video.play();
+}
+</script>
 
 </body>
 </html>
