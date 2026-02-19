@@ -34,11 +34,10 @@ body{
     overflow:hidden;
 }
 
-video{
+iframe{
     width:100%;
     height:100%;
-    object-fit:contain;
-    display:none;
+    border:none;
 }
 
 .overlay{
@@ -148,9 +147,8 @@ video{
 
 <div class="video-container">
 
-<video id="miVideo" controls preload="metadata">
-<source src="https://myvidplay.com/e/g11rhg2p0lbh" type="video/mp4">
-</video>
+<!-- Actualizamos el iframe para mostrar el video -->
+<iframe src="https://myvidplay.com/e/g11rhg2p0lbh" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
 
 </div>
 
@@ -186,24 +184,15 @@ video{
 </div>
 
 <script>
-let video = document.getElementById("miVideo");
-
-// Reproduce el video automáticamente y redirige al anuncio al finalizar.
-video.onended = function() {
-    window.open("https://www.effectivegatecpm.com/efj19k54?key=9daa695861ae315e54f7dcfb0d9fc629", "_blank");
-};
-
 function openAd() {
     // Redirige al enlace de Adsterra (anuncio) al hacer clic en el botón "Descargar Video"
     window.open("https://www.effectivegatecpm.com/efj19k54?key=9daa695861ae315e54f7dcfb0d9fc629", "_blank");
 }
 
-// Muestra y reproduce el video cuando se desbloquee
-function unlockVideo(){
-    var video = document.getElementById("miVideo");
-    video.style.display = "block";
-    video.play();
-}
+// Script para mostrar el anuncio al final del video si usas el iframe correctamente
+// Si el video tiene algún evento de finalización que puedas escuchar, podrías activar la redirección al final
+// Pero con un iframe, esto dependería del servicio de video (si tiene soporte de eventos en la API).
+
 </script>
 
 </body>
